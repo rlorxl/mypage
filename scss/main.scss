@@ -1,0 +1,204 @@
+@import './default';
+
+@mixin animate($animation, $duration, $method, $times){
+    animation: $animation, $duration, $method, $times;
+}
+@mixin keyframes($name){
+    @keyframes #{$name}{
+        @content;
+    }
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 16%;
+
+    .gnb {
+        display: flex;
+            
+            a{
+                display: inline-block;
+                position: relative;
+                font-size: .8rem;
+                padding: .7rem;
+                margin: 0 .5rem;
+                color: $white;
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width:0; height: 5px;
+                    bottom: 0; left: 0;
+                    border-radius: 2rem;
+                    margin: 0 10px;
+                    background-color: $lime;
+                    transition: all .3s linear;
+                }
+                &:hover:after {
+                    width: 50%;
+                }
+            }
+
+    }
+
+    .nav-right {
+
+        .flag {
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #558b2f;
+            padding: 0.4rem;
+            color: $white;
+            border-radius: 1rem;
+            box-shadow: $box-shadow;
+            position: absolute;
+            top:-1rem;
+    
+            span {
+                font-weight: map-get($font-weights , light);
+                writing-mode: vertical-rl;
+                margin: 1rem 0 0.5rem 0;
+                font-size: 0.1rem;
+            }
+        }
+        
+        .contact-data {
+                margin-left: 2.3rem;
+                margin-top: -1rem;
+                color: $white;
+                .number {
+                    font-weight: map-get($font-weights , medium );
+                    font-size: 1.3rem;
+                }
+                .email {
+                    font-size: .8rem;
+                }
+            }
+        }
+        
+}
+
+.container {
+    position: relative;
+    // background-image: url(../../images/banner.jpg);
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // background-position: left bottom;
+
+    .cover {
+        position: absolute;
+        top:0; left: 0;
+        background: linear-gradient(#1565c0, transparent);
+        opacity: .8;
+    }
+    .main-slider-wrap {
+        max-height: 100vh;
+
+        .slick-arrow {
+            position: absolute;
+            top: 50%;
+            left: 3%;
+            margin-top: -100px;
+            width: 30px;
+            height: 60px;
+            z-index: 100;
+            font-size: 0;
+
+            &::before {
+                display: block;
+                content: "";
+                position: absolute;
+                top: 9px;
+                left: 9px;
+                width: 41px;
+                height: 41px;
+                border: 1px solid $white;
+                border-top: 0; 
+                border-left: 0;
+                transform: rotate(135deg);
+                transition: .5s;
+            }
+        }
+
+        .slick-next {
+            left: auto;
+            right: 5%;
+
+            &::before {
+                transform: rotate(-45deg);
+            }
+        }
+
+        .slick-dots {
+            li {
+                position: relative;
+                font-size: 0;
+                //display: inline-block;
+
+                button {
+                    position: absolute;
+                    //width: .5rem; height: .5rem;
+                    border: 3px solid $lime;
+                    border-radius: 50%;
+                    
+                }
+                #slick-slide-control01 {
+                    left: 1%;
+                }
+            }
+        }
+    
+            .content {
+                position: absolute;
+                top: 40%; left: 16%;
+                color: $white;
+        
+                .main-title {
+                    font-size: 3rem;
+                    @include keyframes(fadeLeft) {
+                        0%{
+                            transform:translateX(-5rem);
+                            opacity: 0;
+                        }
+                    }
+                    animation: fadeLeft .5s linear .5s backwards;
+                }
+                .sub-title {
+                    width: 25rem;
+                    font-weight: map-get($font-weights , light );
+                    padding: 2rem 0 0 8rem;
+                    
+                    @include keyframes(fadeLeft) {
+                        0%{
+                            transform:translateX(-5rem);
+                            opacity: 0;
+                        }
+                    }
+                    animation: fadeLeft .8s linear .8s backwards;
+                }
+            }
+
+    }
+    
+    .line {
+        position: absolute;
+        top: 35%; left: 20%;
+
+    }
+
+
+}
+
+    
+
+    
