@@ -1,13 +1,22 @@
 @import './default';
 
-@mixin animate($animation, $duration, $method, $times){
-    animation: $animation, $duration, $method, $times;
+// @mixin animate($animation, $duration, $method, $times){
+//     animation: $animation, $duration, $method, $times;
+// }
+// @mixin keyframes($name){
+//     @keyframes #{$name}{
+//         @content;
+//     }
+// }
+
+@function icon($iconName, $color){
+    $iconList:(
+        logo: "%3Csvg width='80' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 639.25 457.28'%3E%3Cg id='House'%3E%3Cpolygon points='497.76 0 272.95 242.71 138.07 252.28 240.25 158.61 142.83 153.14 79.48 26.66 308.38 73.15 497.76 0' style='fill:%23#{$color}'/%3E%3Cpolygon points='598.59 247.49 598.59 222.88 488.23 46.49 497.76 29.4 633.33 247.49 598.59 247.49' style='fill:%23#{$color}'/%3E%3Cpolygon points='94.47 84.78 73.35 185.28 42.7 185.28 73.35 46.49 94.47 84.78' style='fill:%23#{$color}'/%3E%3Cpolygon points='73.35 210.57 73.35 263.9 10.68 263.9 73.35 210.57' style='fill:%23#{$color}'/%3E%3C/g%3E%3Cg id='Text'%3E%3Ctext transform='translate(192.96 446.67)' style='font-size:36.3029899597168px;fill:%23#{$color};font-family:SohoGothicPro-Light, Soho Gothic Pro;font-weight:300'%3E%3Ctspan style='letter-spacing:0.06999466511765585em'%3EM%3C/tspan%3E%3Ctspan x='31.26' y='0' style='letter-spacing:0.05100303038550173em'%3Eo%3C/tspan%3E%3Ctspan x='53.58' y='0' style='letter-spacing:0.05401586762346386em'%3Ev%3C/tspan%3E%3Ctspan x='73.88' y='0' style='letter-spacing:0.06999466511765585em'%3Ee %3C/tspan%3E%3Ctspan x='106.55' y='0' style='letter-spacing:0.020013847366462705em'%3EF%3C/tspan%3E%3Ctspan x='127.53' y='0' style='letter-spacing:0.07000811528389676em'%3Eor%3C/tspan%3E%3Ctspan x='166.19' y='0' style='letter-spacing:0.05000771808367495em'%3Ew%3C/tspan%3E%3Ctspan x='197.41' y='0' style='letter-spacing:0.06999466511765585em'%3Ea%3C/tspan%3E%3Ctspan x='219.23' y='0' style='letter-spacing:0.0400007944004436em'%3Er%3C/tspan%3E%3Ctspan x='233.79' y='0'%3Ed%3C/tspan%3E%3C/text%3E%3Ctext transform='translate(0 382.74)' style='font-size:117.94316101074219px;fill:%23#{$color};font-family:GothamBook, Gotham Book'%3ECOMPANY%3C/text%3E%3C/g%3E%3C/svg%3E"
+    );
+    $icon: map-get($iconList, $iconName);
+    @return url("data:image/svg+xml;charset=utf8,#{$icon}");
 }
-@mixin keyframes($name){
-    @keyframes #{$name}{
-        @content;
-    }
-}
+
 
 .header {
     position: fixed;
@@ -18,11 +27,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 16%;
+    padding: 2.5rem 16%;
+    transition: .5s;
+
+    .logo {
+        display: inline-block;
+        width: 90px; height: 60px;
+        margin-right: 2rem;
+
+        &.logo {
+            background-image: icon(logo, fff);
+            background-repeat: no-repeat;
+        }
+
+    }
 
     .gnb {
         display: flex;
-            
+
             a{
                 display: inline-block;
                 position: relative;
@@ -73,131 +95,173 @@
         }
         
         .contact-data {
-                margin-left: 2.3rem;
-                margin-top: -1rem;
-                color: $white;
-                .number {
-                    font-weight: map-get($font-weights , medium );
-                    font-size: 1.3rem;
-                }
-                .email {
-                    font-size: .8rem;
-                }
+            margin-left: 2.3rem;
+            margin-top: -1rem;
+            color: $white;
+            .number {
+                font-weight: map-get($font-weights , medium );
+                font-size: 1.3rem;
             }
+            .email {
+                font-size: .8rem;
+            }
+            
         }
-        
+    }   
+    
+    &.sticky {
+        background: $white;
+        padding: 1rem 16%;
+        box-shadow: $box-shadow;
+
+        .logo {
+            background-image: icon(logo, 222);
+        }
+        .gnb a {
+            color: $black;
+        }
+        .contact-data {
+            color: $light-color;
+        }
+
+    }
 }
 
 .container {
-    position: relative;
-    // background-image: url(../../images/banner.jpg);
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // background-position: left bottom;
-
-    .cover {
-        position: absolute;
-        top:0; left: 0;
-        background: linear-gradient(#1565c0, transparent);
-        opacity: .8;
-    }
-    .main-slider-wrap {
-        max-height: 100vh;
-
-        .slick-arrow {
-            position: absolute;
-            top: 50%;
-            left: 3%;
-            margin-top: -100px;
-            width: 30px;
-            height: 60px;
-            z-index: 100;
-            font-size: 0;
-
-            &::before {
-                display: block;
-                content: "";
-                position: absolute;
-                top: 9px;
-                left: 9px;
-                width: 41px;
-                height: 41px;
-                border: 1px solid $white;
-                border-top: 0; 
-                border-left: 0;
-                transform: rotate(135deg);
-                transition: .5s;
-            }
-        }
-
-        .slick-next {
-            left: auto;
-            right: 5%;
-
-            &::before {
-                transform: rotate(-45deg);
-            }
-        }
-
-        .slick-dots {
-            li {
-                position: relative;
-                font-size: 0;
-                //display: inline-block;
-
-                button {
-                    position: absolute;
-                    //width: .5rem; height: .5rem;
-                    border: 3px solid $lime;
-                    border-radius: 50%;
-                    
-                }
-                #slick-slide-control01 {
-                    left: 1%;
-                }
-            }
-        }
     
-            .content {
+    .main-slider-wrap {
+        .main_slider {
+            
+            .slick-arrow {
                 position: absolute;
-                top: 40%; left: 16%;
-                color: $white;
-        
-                .main-title {
-                    font-size: 3rem;
-                    @include keyframes(fadeLeft) {
-                        0%{
-                            transform:translateX(-5rem);
-                            opacity: 0;
-                        }
-                    }
-                    animation: fadeLeft .5s linear .5s backwards;
-                }
-                .sub-title {
-                    width: 25rem;
-                    font-weight: map-get($font-weights , light );
-                    padding: 2rem 0 0 8rem;
-                    
-                    @include keyframes(fadeLeft) {
-                        0%{
-                            transform:translateX(-5rem);
-                            opacity: 0;
-                        }
-                    }
-                    animation: fadeLeft .8s linear .8s backwards;
+                top: 50%;
+                left: 3%;
+                width: 30px;
+                height: 60px;
+                z-index: 10;
+                font-size: 0;
+
+                &::before {
+                    display: block;
+                    content: "";
+                    position: absolute;
+                    top: 9px;
+                    left: 9px;
+                    width: 41px;
+                    height: 41px;
+                    border: 1px solid $white;
+                    border-top: 0; 
+                    border-left: 0;
+                    transform: rotate(135deg);
+                    transition: .5s;
                 }
             }
 
-    }
+            .slick-next {
+                left: auto;
+                right: 5%;
+
+                &::before {
+                    transform: rotate(-45deg);
+                }
+            }
+
+            .slick-dots {
+                position: absolute;
+                bottom: 10%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 0;
+                
+                li {
+                    display: inline-block;
+                    margin: 0 10px;
+                
+                    button {
+                        border: 1px solid $white;
+                        border-radius: 50%;
+                        font-size: 0;
+                        padding: 4px;
+                    }
+
+                    &.slick-active{
+                        button{
+                            background-color: $white;
+                        }
+                    }
+                }
+            }
+
+            
+            .item {
+                position: relative;
+                width: 100%;
+                max-height: 100vh;
+
+                .image {
+                    img {    
+                        transform: scale(1.1);
+                        transition: transform 0s 4s;
+                    }
+                }
+
+                .text-wrap {
+                    position: absolute;
+                    top: 33%; left: 16%;
+                    color: $white;
+    
+                    .in-txt {
+                        transform: translateX(-50px);
+                        opacity: 0;
+                        transition: opacity 0s 3s, transform 0s 3s;
+                    }
+                    .main-title {
+                        font-size: 3rem;
+                    }
+                    .sub-title {
+                        width: 25rem;
+                        font-weight: map-get($font-weights , light );
+                        line-height: 1.5;
+                        padding: 2rem 0 0 8rem;
+                    }   
+                }
+
+                &.slick-active {
+                    .image > img {
+                    transform: scale(1);
+                    transition: transform 9s;
+                    }
+
+                    .in-txt {
+                        transform: translateX(0);
+                        opacity: 1;
+                        transition: opacity 2s, transform 2s;
+                    }
+
+                    .main-title {
+                        transition-delay: .5s;
+                    }
+
+                    .sub-title {
+                        transition-delay: 1s;
+                    }
+                }
+            }
+            
+                
+        } //main-slider end
+    } // main-slider-wrap end
     
     .line {
         position: absolute;
-        top: 35%; left: 20%;
-
+        top: 26%; left: 21%;
+        z-index: 100;
     }
 
+    
 
 }
+
 
     
 
