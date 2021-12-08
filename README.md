@@ -1,2 +1,0 @@
-# Mypage
-Mypage
